@@ -18,7 +18,7 @@ Jupyter, Python and Pandas spending view and analyzer. Load and combine statemen
 
 Input
   * Bank or credit card statements in CSV format
-  * Required columns: Date,Description,Amount
+  * Required columns(can be named differently): Date,Description,Amount
 
 Output
   * Combined Pandas DataFrame with required output columns: Date,Description,Amount,AutoCategory
