@@ -9,11 +9,8 @@ Helper code:
   * Provide apdaptor interface
   * Provide mechanism to add new statement types and apdaptor interface
   * Provide adaptor implemtations for different statement types
-   
-  examples of statement processing tasks
-  
-     * parse statements into required columns -- rename columns etc...
-     * parse transaction descriptions or transaction category into 'AutoCategory' column
+    * parse statements into required columns. rename columns etc...
+    * parse transaction descriptions or transaction category into 'AutoCategory' column
       
 Jupyter code:
   With 12+ months of data
@@ -21,8 +18,8 @@ Jupyter code:
   * Calculate previous calendar year's monthy mean per 'AutoCategory'
   * Calculate current calendar year's monthy mean per 'AutoCategory'
     
-  Pivot table
-  * Show current calendar years monthy spending per 'AutoCategory' with yearly means 
+   Pivot table
+   * Show current calendar years monthy spending per 'AutoCategory' with means 
 
 
 Input
@@ -31,6 +28,7 @@ Input
   
 Output
   Combined data file with Date,Description,Amount,AutoCategory columns
+  
 
 
   
