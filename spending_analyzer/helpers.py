@@ -3,7 +3,7 @@
 import pandas as pd
 
 from StatementData import known_statements
-from StatementData import requiredColumns
+from StatementData import required_columns
 
 
 def auto_categorize_by_desctiption(data, description_categories_list):
@@ -82,7 +82,7 @@ def load_csvs(file_list):
     return load_file_list(
         file_list,
         known_statements,
-        requiredColumns)
+        required_columns)
 
 
 def load_file_list(file_list, file_processors, required_columns):

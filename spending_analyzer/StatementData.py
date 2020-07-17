@@ -1,5 +1,5 @@
 """Functions and data for standardizing statements into required columns.
-Add new known statement adaptee to adapter functions here.
+Add new known statement adapter functions here.
 Takes data from specific instituitions and adapts into a
 standardized dataFrame and adding an 'AutoCategory' column.
 """
@@ -8,7 +8,7 @@ import pandas as pd
 import helpers
 
 # Global tuple of columns required to be produced by the Adapters
-requiredColumns = ('Description', 'Date', 'Amount', 'AutoCategory')
+required_columns = ('Description', 'Date', 'Amount', 'AutoCategory')
 
 # Global dictionary of known statement columns and adpater functions.
 known_statements = {}
@@ -131,24 +131,24 @@ def add_new_statement_type(data, name, adapter, columns):
 
 # Example Credit Card
 known_statements = add_new_statement_type(
-     known_statements,
-     'credit_card_one',
+    known_statements,
+    'credit_card_one',
     credit_card_one_adapter,
     ('Transaction Date',
-     'Post Date',
-     'Description',
-     'Category',
-     'Type',
-     'Amount'))
+    'Post Date',
+    'Description',
+    'Category',
+    'Type',
+    'Amount'))
 
 # Example Bank Account
 known_statements = add_new_statement_type(
-     known_statements,
-     'bank_one',
+    known_statements,
+    'bank_one',
     bank_one_adapter,
     ('Date',
-     'Check',
-     'Description',
-     'Deposit',
-     'Withdrawl',
-     'Balance'))
+    'Check',
+    'Description',
+    'Deposit',
+    'Withdrawl',
+    'Balance'))
