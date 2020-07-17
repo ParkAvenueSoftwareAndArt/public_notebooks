@@ -1,6 +1,7 @@
 # public_notebooks
 
-## spending_analyzer
+## spending_analyzer [spending_analyzer/spending_analyzer.ipynb](https://github.com/ParkAvenueSoftwareAndArt/public_notebooks/blob/master/spending_analyzer/spending_analyzer.ipynb).
+
 
 Jupyter, Python and Pandas spending view and analyzer. Load and combine statements downloaded from banks and credit card companies. Autocategorize from transaction description with user created keyword/category tables. Further filter,group,calculate and pivot data in Jupyter display.
 
