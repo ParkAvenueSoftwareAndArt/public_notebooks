@@ -5,13 +5,48 @@ standardized dataFrame and adding an 'AutoCategory' column.
 """
 
 import pandas as pd
-import helpers
+#import helpers
 
 # Global tuple of columns required to be produced by the Adapters
 required_columns = ('Description', 'Date', 'Amount', 'AutoCategory')
 
 # Global dictionary of known statement columns and adpater functions.
 known_statements = {}
+
+def auto_categorize_by_desctiption(data, description_categories_list):
+    """Adds 'AutoCategory' column populated by matching passed in
+    keyword- category pairs to the 'Description' column. If no matches
+    default values for the 'AutoCategory' column is nan.
+
+    Parameters:
+            data (DataFrame): Parent dictionary with 'Description' column.
+            description_categories_list (List): List of keyword-category pairs.
+
+    Returns:
+            data (DataFrame): Parent dictionary appended with 'AutoCategory'
+            columns
+   """
+
+    df_categories = pd.DataFrame(description_categories_list,
+                                 columns=['Keyword', 'AutoCategory'])
+
+    # Add category column filled with nan
+    if 'AutoCategory' not in data:
+        data['AutoCategory'] = pd.np.nan
+
+    # Iterate through keyword-categories list
+    for index, row in df_categories.iterrows():
+        # Get all rows containing keyword substring
+        matches = pd.DataFrame(data[
+            (data['Description'].str.contains(row['Keyword'], case=False))])
+        if len(matches) > 0:
+            # Set matching AutoCategory row on keyword matching rows and
+            # restore to main DataFrame
+            matches['AutoCategory'] = row['AutoCategory']
+            data.update(matches)
+
+
+    return data
 
 
 ########################################################################
@@ -52,12 +87,11 @@ def bank_one_adapter(data):
         ['Bill Pay', 'Bills & Utilities'],
         ['Check 1158', 'Health & Wellness'],
         ['Transfer', 'Remove from DataFrame'],
-        ['Withdrawl', 'Remove from DataFrame'],
-     ]
+        ['Withdrawl', 'Remove from DataFrame']]
 
      # Keyword Match 'Description' and create new 'AutoCategory' column from
      # keyword-categories list
-    data = helpers.auto_categorize_by_desctiption(data, description_categories_list)
+    data = auto_categorize_by_desctiption(data, description_categories_list)
 
      # Remove rows marked above with category "Remove from DataFrame"
     data = data[data['AutoCategory'] != "Remove from DataFrame"]
@@ -85,7 +119,7 @@ def credit_card_one_adapter(data):
     data['Amount'] = data['Amount'] * -1
 
      # Remove Payments and Withdrawals
-    data=data[(data['Type']!="Payment") & (data['Type']!="Withdrawal")]
+    data = data[(data['Type'] != "Payment") & (data['Type'] != "Withdrawal")]
 
     # Keyword , Category list
     description_categories_list = [
@@ -101,12 +135,11 @@ def credit_card_one_adapter(data):
         ["Pizza", "Restaurants"],
         ["Restaurant", "Restaurants"],
         ["Rent", "Rent"],
-        ["Theme park", "Travel"],
-         ]
+        ["Theme park", "Travel"]]
 
     # Match 'Description' and
     # Create new 'AutoCategory' column
-    data = helpers.auto_categorize_by_desctiption(data, description_categories_list)
+    data = auto_categorize_by_desctiption(data, description_categories_list)
 
     # If no 'AutoCategory' assigned, fill with 'Category' column
     data['AutoCategory'] = data['AutoCategory'].fillna(data['Category'])
@@ -135,11 +168,11 @@ known_statements = add_new_statement_type(
     'credit_card_one',
     credit_card_one_adapter,
     ('Transaction Date',
-    'Post Date',
-    'Description',
-    'Category',
-    'Type',
-    'Amount'))
+     'Post Date',
+     'Description',
+     'Category',
+     'Type',
+     'Amount'))
 
 # Example Bank Account
 known_statements = add_new_statement_type(
@@ -147,8 +180,8 @@ known_statements = add_new_statement_type(
     'bank_one',
     bank_one_adapter,
     ('Date',
-    'Check',
-    'Description',
-    'Deposit',
-    'Withdrawl',
-    'Balance'))
+     'Check',
+     'Description',
+     'Deposit',
+     'Withdrawl',
+     'Balance'))
